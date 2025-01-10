@@ -46,6 +46,10 @@ class Core: NSObject, UIGestureRecognizerDelegate {
             os_log(msg, log: devLog, type: .debug, "state changed: \(oldValue) -> \(state)")
             if let fpc = ownerVC {
                 fpc.delegate?.floatingPanelDidChangeState?(fpc)
+                
+                if isRemovalInteractionEnabled && state == .hidden {
+                    fpc.dismiss(animated: true)
+                }
             }
         }
     }
